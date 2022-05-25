@@ -16,7 +16,7 @@ def main(input_path, checkpoint_path, device, silhouettes_from):
     regressor.load_state_dict(checkpoint['best_model_state_dict'])
 
     predict_3D(input_path, regressor, device, silhouettes_from=silhouettes_from,
-               save_proxy_vis=True, render_vis=True)
+               save_proxy_vis=True, render_vis=False)
 
 
 if __name__ == '__main__':
@@ -35,7 +35,7 @@ if __name__ == '__main__':
     # If you are running this script on a remote machine via ssh, you might need to use EGL
     # to create an OpenGL context. If EGL is installed on the remote machine, uncommenting the
     # following line should work.
-    # os.environ['PYOPENGL_PLATFORM'] = 'egl'
+    os.environ['PYOPENGL_PLATFORM'] = 'egl'
     # If this still doesn't work, just disable rendering visualisation by setting render_vis
     # argument in predict_3D to False.
 
