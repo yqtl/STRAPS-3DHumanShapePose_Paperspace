@@ -106,6 +106,18 @@ def predict_3D(input,
                                interpolation=cv2.INTER_LINEAR)
             # Predict 2D
             joints2D, joints2D_vis = predict_joints2D(image, joints2D_predictor)
+            print("joints2D:")
+            print(joints2D)
+            #print("joints2D_vis:")
+            #print(joints2D_vis)
+            #joints2D_reload=np.array([[248.57359307, 354.68614719,1],[248.57359307, 306.2012987,1],[240.26190476, 271.56926407,1],[270.73809524, 270.18398268,1],[274.89393939, 307.58658009,1],[279.04978355, 353.3008658,1],[234.72077922, 249.4047619,1],[216.71212121, 225.85497835,1],[231.95021645, 198.14935065,1],[277.66450216, 187.06709957,1],[290.13203463, 210.61688312,1],[272.12337662, 227.24025974,1],[254.11471861, 188.45238095,1],[252.72943723, 166.28787879,1],[258.27056277, 253.56060606,1],[255.5       , 220.31385281,1],[254.11471861, 193.99350649,1]])
+            #joints2D_reload=np.array([[254.11471861, 193.99350649,1],[256,186,1],[250,186,1],[263,182,1],[244,184,1],[277.66450216, 187.06709957,1],[231.95021645, 198.14935065,1],[290.13203463, 210.61688312,1],[216.71212121, 225.85497835,1],[272.12337662, 227.24025974,1],[234.72077922, 249.4047619,1],[270.73809524, 270.18398268,1],[240.26190476, 271.56926407,1],[274.89393939, 307.58658009,1],[248.57359307, 306.2012987,1], [279.04978355, 353.3008658,1],[248.57359307, 354.68614719,1]])
+            #print("joints2D_reload")
+            #print(joints2D_reload)
+            #joints2D=joints2D_reload
+            #joints2D[0][0]=3.43441360e+02
+            #joints2D[0][1]=3.43441360e+02
+            #print(joints2D)
             if silhouettes_from == 'pointrend':
                 silhouette, silhouette_vis = predict_silhouette_pointrend(image,
                                                                           silhouette_predictor)
@@ -140,6 +152,8 @@ def predict_3D(input,
                                         global_orient=pred_pose_rotmats[:, 0].unsqueeze(1),
                                         betas=pred_shape,
                                         pose2rot=False)
+                print("pred_shape(betas):")
+                print(pred_shape)
                 pred_vertices = pred_smpl_output.vertices
                 pred_vertices2d = orthographic_project_torch(pred_vertices, pred_cam_wp)
                 pred_vertices2d = undo_keypoint_normalisation(pred_vertices2d,
@@ -147,7 +161,7 @@ def predict_3D(input,
 
                 pred_reposed_smpl_output = smpl(betas=pred_shape)
                 pred_reposed_vertices = pred_reposed_smpl_output.vertices
-                print(pred_reposed_smpl_output)
+                #print(pred_reposed_smpl_output)
             # Numpy-fying
             pred_vertices = pred_vertices.cpu().detach().numpy()[0]
             pred_vertices2d = pred_vertices2d.cpu().detach().numpy()[0]
